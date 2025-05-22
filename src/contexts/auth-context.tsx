@@ -1,3 +1,4 @@
+import { createContext, useContext, useEffect, useState } from "react"
 import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
@@ -5,11 +6,11 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
-} from 'firebase/auth'
-import { createContext, useContext, useEffect, useState } from 'react'
-import type { User } from '@/schemas'
-import type { User as FirebaseUser } from 'firebase/auth'
-import { auth } from '@/lib/firebase/firebase-config'
+} from "firebase/auth"
+import type { User } from "@/schemas"
+import type { User as FirebaseUser } from "firebase/auth"
+
+import { auth } from "@/lib/firebase/firebase-config"
 
 interface AuthContextType {
   currentUser: User | null
@@ -25,7 +26,7 @@ const AuthContext = createContext<AuthContextType | null>(null)
 export const useAuth = () => {
   const context = useContext(AuthContext)
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider')
+    throw new Error("useAuth must be used within an AuthProvider")
   }
   return context
 }
@@ -36,7 +37,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const transformFirebaseUser = (firebaseUser: FirebaseUser): User => ({
     uid: firebaseUser.uid,
-    email: firebaseUser.email || '',
+    email: firebaseUser.email || "",
     displayName: firebaseUser.displayName,
     photoURL: firebaseUser.photoURL,
   })

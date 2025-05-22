@@ -2,13 +2,32 @@
 
 /** @type {import('prettier').Config} */
 const config = {
+  endOfLine: "lf",
   semi: false,
-  singleQuote: true,
-  trailingComma: 'all',
-  importOrderParserPlugins: ['typescript', 'jsx'],
+  singleQuote: false,
+  tabWidth: 2,
+  trailingComma: "es5",
+  importOrder: [
+    "^(react/(.*)$)|^(react$)",
+    "<THIRD_PARTY_MODULES>",
+    "",
+    "^types$",
+    "^@/env(.*)$",
+    "^@/components/ui/(.*)$",
+    "^@/components/(.*)$",
+    "^@/contexts/(.*)$",
+    "^@/hooks/(.*)$",
+    "^@/integrations/(.*)$",
+    "^@/lib/(.*)$",
+    "^@/routes/(.*)$",
+    "^@/schemas/(.*)$",
+    "",
+    "^[./]",
+  ],
+  importOrderParserPlugins: ["typescript", "jsx"],
   plugins: [
-    '@ianvs/prettier-plugin-sort-imports',
-    'prettier-plugin-tailwindcss',
+    "@ianvs/prettier-plugin-sort-imports",
+    "prettier-plugin-tailwindcss",
   ],
 }
 

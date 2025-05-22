@@ -1,9 +1,15 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from "@tanstack/react-router"
 
-export const Route = createFileRoute('/')({
+import { ProtectedRoute } from "@/components/protected-route"
+
+export const Route = createFileRoute("/")({
   component: App,
 })
 
 function App() {
-  return <div></div>
+  return (
+    <ProtectedRoute>
+      <div></div>
+    </ProtectedRoute>
+  )
 }
