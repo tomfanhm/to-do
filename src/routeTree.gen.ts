@@ -11,98 +11,132 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as IndexImport } from './routes/index'
-import { Route as authRegisterImport } from './routes/(auth)/register'
-import { Route as authLoginImport } from './routes/(auth)/login'
+import { Route as PathlessLayoutImport } from './routes/_pathlessLayout'
+import { Route as PathlessLayoutIndexImport } from './routes/_pathlessLayout/index'
+import { Route as PathlessLayoutauthRegisterImport } from './routes/_pathlessLayout/(auth)/register'
+import { Route as PathlessLayoutauthLoginImport } from './routes/_pathlessLayout/(auth)/login'
 
 // Create/Update Routes
 
-const IndexRoute = IndexImport.update({
+const PathlessLayoutRoute = PathlessLayoutImport.update({
+  id: '/_pathlessLayout',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PathlessLayoutIndexRoute = PathlessLayoutIndexImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => PathlessLayoutRoute,
 } as any)
 
-const authRegisterRoute = authRegisterImport.update({
-  id: '/(auth)/register',
-  path: '/register',
-  getParentRoute: () => rootRoute,
-} as any)
+const PathlessLayoutauthRegisterRoute = PathlessLayoutauthRegisterImport.update(
+  {
+    id: '/(auth)/register',
+    path: '/register',
+    getParentRoute: () => PathlessLayoutRoute,
+  } as any,
+)
 
-const authLoginRoute = authLoginImport.update({
+const PathlessLayoutauthLoginRoute = PathlessLayoutauthLoginImport.update({
   id: '/(auth)/login',
   path: '/login',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => PathlessLayoutRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/_pathlessLayout': {
+      id: '/_pathlessLayout'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof PathlessLayoutImport
+      parentRoute: typeof rootRoute
+    }
+    '/_pathlessLayout/': {
+      id: '/_pathlessLayout/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof PathlessLayoutIndexImport
+      parentRoute: typeof PathlessLayoutImport
     }
-    '/(auth)/login': {
-      id: '/(auth)/login'
+    '/_pathlessLayout/(auth)/login': {
+      id: '/_pathlessLayout/(auth)/login'
       path: '/login'
       fullPath: '/login'
-      preLoaderRoute: typeof authLoginImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof PathlessLayoutauthLoginImport
+      parentRoute: typeof PathlessLayoutImport
     }
-    '/(auth)/register': {
-      id: '/(auth)/register'
+    '/_pathlessLayout/(auth)/register': {
+      id: '/_pathlessLayout/(auth)/register'
       path: '/register'
       fullPath: '/register'
-      preLoaderRoute: typeof authRegisterImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof PathlessLayoutauthRegisterImport
+      parentRoute: typeof PathlessLayoutImport
     }
   }
 }
 
 // Create and export the route tree
 
+interface PathlessLayoutRouteChildren {
+  PathlessLayoutIndexRoute: typeof PathlessLayoutIndexRoute
+  PathlessLayoutauthLoginRoute: typeof PathlessLayoutauthLoginRoute
+  PathlessLayoutauthRegisterRoute: typeof PathlessLayoutauthRegisterRoute
+}
+
+const PathlessLayoutRouteChildren: PathlessLayoutRouteChildren = {
+  PathlessLayoutIndexRoute: PathlessLayoutIndexRoute,
+  PathlessLayoutauthLoginRoute: PathlessLayoutauthLoginRoute,
+  PathlessLayoutauthRegisterRoute: PathlessLayoutauthRegisterRoute,
+}
+
+const PathlessLayoutRouteWithChildren = PathlessLayoutRoute._addFileChildren(
+  PathlessLayoutRouteChildren,
+)
+
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/login': typeof authLoginRoute
-  '/register': typeof authRegisterRoute
+  '': typeof PathlessLayoutRouteWithChildren
+  '/': typeof PathlessLayoutIndexRoute
+  '/login': typeof PathlessLayoutauthLoginRoute
+  '/register': typeof PathlessLayoutauthRegisterRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/login': typeof authLoginRoute
-  '/register': typeof authRegisterRoute
+  '/': typeof PathlessLayoutIndexRoute
+  '/login': typeof PathlessLayoutauthLoginRoute
+  '/register': typeof PathlessLayoutauthRegisterRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof IndexRoute
-  '/(auth)/login': typeof authLoginRoute
-  '/(auth)/register': typeof authRegisterRoute
+  '/_pathlessLayout': typeof PathlessLayoutRouteWithChildren
+  '/_pathlessLayout/': typeof PathlessLayoutIndexRoute
+  '/_pathlessLayout/(auth)/login': typeof PathlessLayoutauthLoginRoute
+  '/_pathlessLayout/(auth)/register': typeof PathlessLayoutauthRegisterRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/register'
+  fullPaths: '' | '/' | '/login' | '/register'
   fileRoutesByTo: FileRoutesByTo
   to: '/' | '/login' | '/register'
-  id: '__root__' | '/' | '/(auth)/login' | '/(auth)/register'
+  id:
+    | '__root__'
+    | '/_pathlessLayout'
+    | '/_pathlessLayout/'
+    | '/_pathlessLayout/(auth)/login'
+    | '/_pathlessLayout/(auth)/register'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  authLoginRoute: typeof authLoginRoute
-  authRegisterRoute: typeof authRegisterRoute
+  PathlessLayoutRoute: typeof PathlessLayoutRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  authLoginRoute: authLoginRoute,
-  authRegisterRoute: authRegisterRoute,
+  PathlessLayoutRoute: PathlessLayoutRouteWithChildren,
 }
 
 export const routeTree = rootRoute
@@ -115,19 +149,28 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/",
-        "/(auth)/login",
-        "/(auth)/register"
+        "/_pathlessLayout"
       ]
     },
-    "/": {
-      "filePath": "index.tsx"
+    "/_pathlessLayout": {
+      "filePath": "_pathlessLayout.tsx",
+      "children": [
+        "/_pathlessLayout/",
+        "/_pathlessLayout/(auth)/login",
+        "/_pathlessLayout/(auth)/register"
+      ]
     },
-    "/(auth)/login": {
-      "filePath": "(auth)/login.tsx"
+    "/_pathlessLayout/": {
+      "filePath": "_pathlessLayout/index.tsx",
+      "parent": "/_pathlessLayout"
     },
-    "/(auth)/register": {
-      "filePath": "(auth)/register.tsx"
+    "/_pathlessLayout/(auth)/login": {
+      "filePath": "_pathlessLayout/(auth)/login.tsx",
+      "parent": "/_pathlessLayout"
+    },
+    "/_pathlessLayout/(auth)/register": {
+      "filePath": "_pathlessLayout/(auth)/register.tsx",
+      "parent": "/_pathlessLayout"
     }
   }
 }

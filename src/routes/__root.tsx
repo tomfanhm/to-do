@@ -5,13 +5,14 @@ import {
   createRootRouteWithContext,
 } from "@tanstack/react-router"
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools"
-
-
 import TanStackQueryLayout from "../integrations/tanstack-query/layout.tsx"
 import appCss from "../styles.css?url"
 import type { QueryClient } from "@tanstack/react-query"
-import { AuthProvider } from "@/contexts/auth-context.tsx"
-import { Toaster } from "@/components/ui/sonner.tsx"
+
+import site from "@/config/site.ts"
+import { NotFound } from "@/components/not-found.tsx"
+import { seo } from "@/lib/seo.ts"
+
 
 interface MyRouterContext {
   queryClient: QueryClient
@@ -27,18 +28,32 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         name: "viewport",
         content: "width=device-width, initial-scale=1",
       },
-      {
-        title: "Todo",
-      },
+      ...seo({
+        title: site.name,
+        description: site.description,
+      }),
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
       },
+      {
+        rel: "apple-touch-icon",
+        sizes: "180x180",
+        href: "/apple-touch-icon.png",
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "96x96",
+        href: "/favicon-96x96.png",
+      },
+      { rel: "manifest", href: "/site.webmanifest", color: "#ffffff" },
+      { rel: "icon", href: "/favicon.ico" },
     ],
   }),
-
+  notFoundComponent: () => <NotFound />,
   component: () => (
     <RootDocument>
       <Outlet />
@@ -54,11 +69,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body>
-        <AuthProvider>
-          {children}
-          <Toaster />
-        </AuthProvider>
+      <body className="bg-background min-h-screen font-sans antialiased">
+        {children}
         <Scripts />
       </body>
     </html>

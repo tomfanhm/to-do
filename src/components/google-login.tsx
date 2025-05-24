@@ -1,4 +1,5 @@
 import React from "react"
+import { useRouter } from "@tanstack/react-router"
 import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
@@ -7,9 +8,12 @@ import { useAuth } from "@/contexts/auth-context"
 const GoogleLogin: React.FC = () => {
   const { signInWithGoogle } = useAuth()
 
+  const router = useRouter()
+
   const handleLogin = async () => {
     try {
       await signInWithGoogle()
+      router.navigate({ to: "/" })
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Login failed")
     }

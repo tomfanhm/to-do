@@ -14,6 +14,7 @@ const config = {
     "^types$",
     "^@/env(.*)$",
     "^@/components/ui/(.*)$",
+    "@/config/(.*)$",
     "^@/components/(.*)$",
     "^@/contexts/(.*)$",
     "^@/hooks/(.*)$",

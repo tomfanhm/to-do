@@ -1,14 +1,14 @@
 import { Link, createFileRoute } from "@tanstack/react-router"
 
 import { Button } from "@/components/ui/button"
-import LoginForm from "@/components/login-form"
+import RegisterForm from "@/components/signup-form"
 
-export const Route = createFileRoute("/(auth)/login")({
+export const Route = createFileRoute("/_pathlessLayout/(auth)/register")({
   component: RouteComponent,
   head: () => ({
     meta: [
       {
-        title: "Login",
+        title: "Register",
       },
     ],
   }),
@@ -22,17 +22,17 @@ function RouteComponent() {
           <img className="mx-auto h-10 w-auto" src="/logo.png" alt="Logo" />
         </Link>
         <h2 className="text-foreground mt-6 text-center text-2xl leading-9 font-bold tracking-tight">
-          Login to your account
+          Create an account
         </h2>
       </div>
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
-        <LoginForm />
+        <RegisterForm />
       </div>
       <p className="text-muted-foreground mt-10 text-center text-sm">
-        Not a member?
-        <Link to="/register">
+        Already have an account?
+        <Link to="/login">
           <Button variant="link" className="ml-1">
-            Register now
+            Login now
           </Button>
         </Link>
       </p>
