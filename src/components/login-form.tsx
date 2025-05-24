@@ -2,7 +2,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "@tanstack/react-router"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
-import GoogleLogin from "./google-login"
 import type { Login } from "@/schemas"
 import { login } from "@/schemas"
 
@@ -25,8 +24,8 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { LoadingSpinner } from "@/components/ui/loading-spinner"
-import { useAuth } from "@/contexts/auth-context"
-
+import GoogleLogin from "@/components/google-login"
+import { useAuth } from "@/hooks/use-auth"
 
 const LoginForm: React.FC = () => {
   const { signIn } = useAuth()

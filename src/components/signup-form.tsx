@@ -1,7 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
-import GoogleLogin from "./google-login"
 import type { Register } from "@/schemas"
 import { register } from "@/schemas"
 
@@ -24,8 +23,8 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { LoadingSpinner } from "@/components/ui/loading-spinner"
-import { useAuth } from "@/contexts/auth-context"
-
+import GoogleLogin from "@/components/google-login"
+import { useAuth } from "@/hooks/use-auth"
 
 const RegisterForm: React.FC = () => {
   const { signUp } = useAuth()

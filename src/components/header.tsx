@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router"
 import { LogOut, MoonIcon, SunIcon } from "lucide-react"
 
-import { useTheme } from "./theme-provider"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
@@ -13,8 +12,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import site from "@/config/site"
-import { useAuth } from "@/contexts/auth-context"
-
+import { useTheme } from "@/components/theme-provider"
+import { useAuth } from "@/hooks/use-auth"
 
 export const Header = () => {
   const { currentUser, logout } = useAuth()

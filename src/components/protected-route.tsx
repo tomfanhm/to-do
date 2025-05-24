@@ -1,7 +1,7 @@
 import { useRouter } from "@tanstack/react-router"
 
 import { LoadingSpinner } from "@/components/ui/loading-spinner"
-import { useAuth } from "@/contexts/auth-context"
+import { useAuth } from "@/hooks/use-auth"
 
 export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter()

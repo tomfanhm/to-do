@@ -3,7 +3,7 @@ import { useRouter } from "@tanstack/react-router"
 import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
-import { useAuth } from "@/contexts/auth-context"
+import { useAuth } from "@/hooks/use-auth"
 
 const GoogleLogin: React.FC = () => {
   const { signInWithGoogle } = useAuth()
