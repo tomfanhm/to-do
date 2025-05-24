@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react"
+/* import { createContext, useContext, useEffect, useState } from "react"
 import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
@@ -79,3 +79,4 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
+ */

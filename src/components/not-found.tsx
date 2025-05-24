@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router"
 
 import { Button } from "@/components/ui/button"
 
-export function NotFound({ children }: { children?: any }) {
+export function NotFound({ children }: { children?: React.ReactNode }) {
   return (
     <div className="bg-background grid min-h-screen place-items-center px-6 py-24 sm:py-32 lg:px-8">
       <div className="text-center">

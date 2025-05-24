@@ -52,7 +52,7 @@ const LoginForm: React.FC = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Card>
+        <Card className="border-none shadow-none">
           <CardHeader>
             <CardTitle>Login</CardTitle>
             <CardDescription>
