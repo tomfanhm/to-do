@@ -1,8 +1,8 @@
-import React, { Fragment, useState } from "react"
+import React, { Fragment } from "react"
 import type { Task } from "@/schemas"
 import { format } from "date-fns"
 import { motion } from "framer-motion"
-import { Calendar, FileText, MoreVertical, Paperclip, Star } from "lucide-react"
+import { Calendar, MoreVertical, Paperclip, Star } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -11,12 +11,13 @@ import { Checkbox } from "@/components/ui/checkbox"
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import DeleteConfirmDialog from "@/components/delete-confirm-dialog"
 import { useTask } from "@/hooks/use-task"
 import { cn } from "@/lib/utils"
+
+import TaskDetail from "./task-detail"
 
 type TaskCardProps = {
   task: Task
@@ -24,7 +25,6 @@ type TaskCardProps = {
 
 const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
   const { toggleTaskStatus, toggleStarred } = useTask()
-  const [showDetailDialog, setShowDetailDialog] = useState(false)
 
   const handleToggleStatus = () => {
     toggleTaskStatus(
@@ -115,10 +115,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                  <DropdownMenuItem onClick={() => setShowDetailDialog(true)}>
-                    <FileText />
-                    View Details
-                  </DropdownMenuItem>
+                  <TaskDetail task={task} />
                   <DeleteConfirmDialog taskId={task.id} />
                 </DropdownMenuContent>
               </DropdownMenu>

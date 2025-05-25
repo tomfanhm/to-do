@@ -60,6 +60,13 @@ export const task = z.object({
 })
 export type Task = z.infer<typeof task>
 
+export const editTask = task.omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+})
+export type EditTask = z.infer<typeof editTask>
+
 export const user = z.object({
   uid: z.string(),
   email: z.string(),

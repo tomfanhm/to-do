@@ -30,7 +30,11 @@ const DeleteConfirmDialog: React.FC<DeleteConfirmDialogProps> = ({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <DropdownMenuItem>
+        <DropdownMenuItem
+          onSelect={(e) => {
+            e.preventDefault()
+          }}
+        >
           <Trash2 />
           Delete
         </DropdownMenuItem>
