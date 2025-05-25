@@ -75,7 +75,9 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
                   >
                     <Star
                       className={
-                        task.isStarred ? "fill-yellow-400 text-yellow-400" : ""
+                        task.isStarred
+                          ? "fill-yellow-400 text-yellow-400"
+                          : "text-muted-foreground"
                       }
                     />
                   </Button>

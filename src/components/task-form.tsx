@@ -84,6 +84,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ isOpen, onClose }) => {
       status: "incomplete",
       priority: "medium",
       isStarred: false,
+      color: "default",
       category: "",
       attachments: [],
     },

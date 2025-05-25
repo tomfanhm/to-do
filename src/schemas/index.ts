@@ -29,6 +29,7 @@ export const taskGroup = z.enum([
   "future",
   "incomplete",
   "completed",
+  "default",
 ])
 export type TaskGroup = z.infer<typeof taskGroup>
 
@@ -44,7 +45,7 @@ export type Attachment = z.infer<typeof attachment>
 
 export const task = z.object({
   id: z.string(),
-  title: z.string(),
+  title: z.string().min(1, { message: "Title is required." }),
   description: z.string(),
   createdAt: z.number(),
   updatedAt: z.number(),
