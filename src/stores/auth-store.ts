@@ -1,15 +1,15 @@
+import type { User } from "@/schemas"
 import {
-  GoogleAuthProvider,
   createUserWithEmailAndPassword,
+  GoogleAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
 } from "firebase/auth"
+import type { User as FirebaseUser } from "firebase/auth"
 import { create } from "zustand"
 import { subscribeWithSelector } from "zustand/middleware"
-import type { User as FirebaseUser } from "firebase/auth"
-import type { User } from "@/schemas"
 
 import { auth } from "@/lib/firebase/firebase-config"
 
@@ -50,11 +50,11 @@ export const useAuthStore = create<AuthStore>()(
     setLoading: (loading) => set({ loading }),
     setInitialized: (initialized) => set({ isInitialized: initialized }),
 
-    signIn: async (email: string, password: string) => {
+    signIn: async (email, password) => {
       await signInWithEmailAndPassword(auth, email, password)
     },
 
-    signUp: async (email: string, password: string) => {
+    signUp: async (email, password) => {
       await createUserWithEmailAndPassword(auth, email, password)
     },
 

@@ -1,11 +1,11 @@
 import React from "react"
+import type { Task, TaskColor, TaskPriority } from "@/schemas"
+import { task } from "@/schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { format } from "date-fns"
 import { Clock } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
-import type { Task } from "@/schemas"
-import { task } from "@/schemas"
 
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
@@ -45,20 +45,27 @@ import { cn } from "@/lib/utils"
 
 type NewTaskValues = Omit<Task, "id" | "userId" | "createdAt" | "updatedAt">
 
-const PRIORITY_OPTIONS = [
+const PRIORITY_OPTIONS: Array<{
+  value: TaskPriority
+  label: string
+  color: string
+}> = [
   { value: "low", label: "Low", color: "text-green-400" },
   { value: "medium", label: "Medium", color: "text-yellow-400" },
   { value: "high", label: "High", color: "text-red-400" },
-] as const
+]
 
-const COLOR_OPTIONS = [
-  { value: "default", label: "Default", color: "bg-gray-400" },
-  { value: "red", label: "Red", color: "bg-red-400" },
-  { value: "blue", label: "Blue", color: "bg-blue-400" },
-  { value: "green", label: "Green", color: "bg-green-400" },
-  { value: "yellow", label: "Yellow", color: "bg-yellow-400" },
-  { value: "purple", label: "Purple", color: "bg-purple-400" },
-] as const
+const COLOR_OPTIONS: Array<{ value: TaskColor; label: string; color: string }> =
+  [
+    { value: "default", label: "Default", color: "bg-gray-400" },
+    { value: "red", label: "Red", color: "bg-red-400" },
+    { value: "orange", label: "Orange", color: "bg-orange-400" },
+    { value: "yellow", label: "Yellow", color: "bg-yellow-400" },
+    { value: "green", label: "Green", color: "bg-green-400" },
+    { value: "blue", label: "Blue", color: "bg-blue-400" },
+    { value: "purple", label: "Purple", color: "bg-purple-400" },
+    { value: "pink", label: "Pink", color: "bg-pink-400" },
+  ]
 
 type TaskFormProps = {
   isOpen: boolean

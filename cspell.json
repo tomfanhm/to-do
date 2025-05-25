@@ -1,0 +1,16 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "dictionaries": ["typescript", "node", "html", "css"],
+  "dictionaryDefinitions": [],
+  "words": ["firestore", "Millis", "sonner", "shadcn"],
+  "ignoreWords": [],
+  "ignorePaths": [
+    "node_modules/**",
+    "dist/**",
+    "build/**",
+    "**/*.min.*",
+    "**/package-lock.json",
+    "**/yarn.lock"
+  ]
+}

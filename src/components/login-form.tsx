@@ -1,9 +1,9 @@
+import type { Login } from "@/schemas"
+import { login } from "@/schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "@tanstack/react-router"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
-import type { Login } from "@/schemas"
-import { login } from "@/schemas"
 
 import { Button } from "@/components/ui/button"
 import {

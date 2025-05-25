@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import site from "@/config/site"
+import Sidebar from "@/components/sidebar"
 import { useTheme } from "@/components/theme-provider"
 import { useAuth } from "@/hooks/use-auth"
 
@@ -26,7 +27,8 @@ export const Header = () => {
   return (
     <header className="bg-background">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
-        <div className="flex">
+        <div className="flex items-center space-x-3">
+          <Sidebar />
           <Link to="/">
             <span className="sr-only">{site.name}</span>
             <img alt={site.name} src="/logo.png" className="h-8 w-auto" />
@@ -39,22 +41,17 @@ export const Header = () => {
           {currentUser && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  className="relative h-8 w-8 rounded-full"
-                >
-                  <Avatar className="h-8 w-8">
-                    <AvatarImage
-                      src={currentUser.photoURL || ""}
-                      alt={currentUser.displayName || ""}
-                    />
-                    <AvatarFallback>
-                      {currentUser.displayName?.charAt(0) ||
-                        currentUser.email.charAt(0) ||
-                        "U"}
-                    </AvatarFallback>
-                  </Avatar>
-                </Button>
+                <Avatar className="h-8 w-8 cursor-pointer">
+                  <AvatarImage
+                    src={currentUser.photoURL || ""}
+                    alt={currentUser.displayName || ""}
+                  />
+                  <AvatarFallback>
+                    {currentUser.displayName?.charAt(0) ||
+                      currentUser.email.charAt(0) ||
+                      "U"}
+                  </AvatarFallback>
+                </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56" align="end" forceMount>
                 <DropdownMenuLabel className="font-normal">

@@ -1,5 +1,5 @@
+import type { Attachment, Task, TaskGroup } from "@/schemas"
 import {
-  Timestamp,
   addDoc,
   collection,
   deleteDoc,
@@ -8,9 +8,11 @@ import {
   orderBy,
   query,
   serverTimestamp,
+  Timestamp,
   updateDoc,
   where,
 } from "firebase/firestore"
+import type { DocumentData } from "firebase/firestore"
 import {
   deleteObject,
   getDownloadURL,
@@ -19,8 +21,6 @@ import {
 } from "firebase/storage"
 import { create } from "zustand"
 import { subscribeWithSelector } from "zustand/middleware"
-import type { DocumentData } from "firebase/firestore"
-import type { Attachment, Task, TaskGroup } from "@/schemas"
 
 import { db, storage } from "@/lib/firebase/firebase-config"
 import { useAuthStore } from "@/stores/auth-store"

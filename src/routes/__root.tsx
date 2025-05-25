@@ -1,18 +1,18 @@
+import type { QueryClient } from "@tanstack/react-query"
 import {
+  createRootRouteWithContext,
   HeadContent,
   Outlet,
   Scripts,
-  createRootRouteWithContext,
 } from "@tanstack/react-router"
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools"
-import TanStackQueryLayout from "../integrations/tanstack-query/layout.tsx"
-import appCss from "../styles.css?url"
-import type { QueryClient } from "@tanstack/react-query"
 
 import site from "@/config/site.ts"
 import { NotFound } from "@/components/not-found.tsx"
 import { seo } from "@/lib/seo.ts"
 
+import TanStackQueryLayout from "../integrations/tanstack-query/layout.tsx"
+import appCss from "../styles.css?url"
 
 interface MyRouterContext {
   queryClient: QueryClient

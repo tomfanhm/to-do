@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as PathlessLayoutImport } from './routes/_pathlessLayout'
 import { Route as PathlessLayoutIndexImport } from './routes/_pathlessLayout/index'
+import { Route as PathlessLayoutGroupImport } from './routes/_pathlessLayout/$group'
 import { Route as PathlessLayoutauthRegisterImport } from './routes/_pathlessLayout/(auth)/register'
 import { Route as PathlessLayoutauthLoginImport } from './routes/_pathlessLayout/(auth)/login'
 
@@ -26,6 +27,12 @@ const PathlessLayoutRoute = PathlessLayoutImport.update({
 const PathlessLayoutIndexRoute = PathlessLayoutIndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => PathlessLayoutRoute,
+} as any)
+
+const PathlessLayoutGroupRoute = PathlessLayoutGroupImport.update({
+  id: '/$group',
+  path: '/$group',
   getParentRoute: () => PathlessLayoutRoute,
 } as any)
 
@@ -54,6 +61,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PathlessLayoutImport
       parentRoute: typeof rootRoute
     }
+    '/_pathlessLayout/$group': {
+      id: '/_pathlessLayout/$group'
+      path: '/$group'
+      fullPath: '/$group'
+      preLoaderRoute: typeof PathlessLayoutGroupImport
+      parentRoute: typeof PathlessLayoutImport
+    }
     '/_pathlessLayout/': {
       id: '/_pathlessLayout/'
       path: '/'
@@ -81,12 +95,14 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface PathlessLayoutRouteChildren {
+  PathlessLayoutGroupRoute: typeof PathlessLayoutGroupRoute
   PathlessLayoutIndexRoute: typeof PathlessLayoutIndexRoute
   PathlessLayoutauthLoginRoute: typeof PathlessLayoutauthLoginRoute
   PathlessLayoutauthRegisterRoute: typeof PathlessLayoutauthRegisterRoute
 }
 
 const PathlessLayoutRouteChildren: PathlessLayoutRouteChildren = {
+  PathlessLayoutGroupRoute: PathlessLayoutGroupRoute,
   PathlessLayoutIndexRoute: PathlessLayoutIndexRoute,
   PathlessLayoutauthLoginRoute: PathlessLayoutauthLoginRoute,
   PathlessLayoutauthRegisterRoute: PathlessLayoutauthRegisterRoute,
@@ -98,12 +114,14 @@ const PathlessLayoutRouteWithChildren = PathlessLayoutRoute._addFileChildren(
 
 export interface FileRoutesByFullPath {
   '': typeof PathlessLayoutRouteWithChildren
+  '/$group': typeof PathlessLayoutGroupRoute
   '/': typeof PathlessLayoutIndexRoute
   '/login': typeof PathlessLayoutauthLoginRoute
   '/register': typeof PathlessLayoutauthRegisterRoute
 }
 
 export interface FileRoutesByTo {
+  '/$group': typeof PathlessLayoutGroupRoute
   '/': typeof PathlessLayoutIndexRoute
   '/login': typeof PathlessLayoutauthLoginRoute
   '/register': typeof PathlessLayoutauthRegisterRoute
@@ -112,6 +130,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_pathlessLayout': typeof PathlessLayoutRouteWithChildren
+  '/_pathlessLayout/$group': typeof PathlessLayoutGroupRoute
   '/_pathlessLayout/': typeof PathlessLayoutIndexRoute
   '/_pathlessLayout/(auth)/login': typeof PathlessLayoutauthLoginRoute
   '/_pathlessLayout/(auth)/register': typeof PathlessLayoutauthRegisterRoute
@@ -119,12 +138,13 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/' | '/login' | '/register'
+  fullPaths: '' | '/$group' | '/' | '/login' | '/register'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/register'
+  to: '/$group' | '/' | '/login' | '/register'
   id:
     | '__root__'
     | '/_pathlessLayout'
+    | '/_pathlessLayout/$group'
     | '/_pathlessLayout/'
     | '/_pathlessLayout/(auth)/login'
     | '/_pathlessLayout/(auth)/register'
@@ -155,10 +175,15 @@ export const routeTree = rootRoute
     "/_pathlessLayout": {
       "filePath": "_pathlessLayout.tsx",
       "children": [
+        "/_pathlessLayout/$group",
         "/_pathlessLayout/",
         "/_pathlessLayout/(auth)/login",
         "/_pathlessLayout/(auth)/register"
       ]
+    },
+    "/_pathlessLayout/$group": {
+      "filePath": "_pathlessLayout/$group.tsx",
+      "parent": "/_pathlessLayout"
     },
     "/_pathlessLayout/": {
       "filePath": "_pathlessLayout/index.tsx",

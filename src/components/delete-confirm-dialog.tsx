@@ -1,3 +1,5 @@
+import { Trash2 } from "lucide-react"
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -7,29 +9,32 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
+  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu"
 import { useTask } from "@/hooks/use-task"
 
 type DeleteConfirmDialogProps = {
-  isOpen: boolean
-  onClose: () => void
   taskId: string
 }
 
 const DeleteConfirmDialog: React.FC<DeleteConfirmDialogProps> = ({
-  isOpen,
-  onClose,
   taskId,
 }) => {
   const { deleteTask } = useTask()
 
   const handleDelete = async () => {
     await deleteTask(taskId)
-    onClose()
   }
 
   return (
-    <AlertDialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <DropdownMenuItem>
+          <Trash2 />
+          Delete
+        </DropdownMenuItem>
+      </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you sure?</AlertDialogTitle>
