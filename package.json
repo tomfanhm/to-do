@@ -10,8 +10,7 @@
     "test": "vitest run",
     "lint": "eslint",
     "format": "prettier --write .",
-    "check": "prettier --write . && eslint --fix",
-    "prepare": "husky"
+    "check": "prettier --write . && eslint --fix"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
