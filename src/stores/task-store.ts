@@ -57,14 +57,46 @@ type TaskStore = TaskState & TaskActions
 
 const transformFirestoreTask = (doc: DocumentData): Task => {
   const data = doc.data()
+
+  const safeTimestampToMillis = (timestamp: any): number | null => {
+    if (!timestamp) return null
+
+    // If it's a Firestore Timestamp
+    if (timestamp instanceof Timestamp) {
+      return timestamp.toMillis()
+    }
+
+    // If it's already a number (milliseconds)
+    if (typeof timestamp === "number") {
+      return timestamp
+    }
+
+    // If it's a JavaScript Date
+    if (timestamp instanceof Date) {
+      return timestamp.getTime()
+    }
+
+    // If it has a toMillis method (Firestore Timestamp-like object)
+    if (timestamp && typeof timestamp.toMillis === "function") {
+      return timestamp.toMillis()
+    }
+
+    // If it has seconds and nanoseconds (Firestore Timestamp plain object)
+    if (timestamp && typeof timestamp.seconds === "number") {
+      return timestamp.seconds * 1000 + (timestamp.nanoseconds || 0) / 1000000
+    }
+
+    return null
+  }
+
   return {
     id: doc.id,
     title: data.title,
     description: data.description,
-    createdAt: data.createdAt?.toMillis() || Date.now(),
-    updatedAt: data.updatedAt?.toMillis() || Date.now(),
-    dueDate: data.dueDate?.toMillis() || null,
-    reminder: data.reminder?.toMillis() || null,
+    createdAt: safeTimestampToMillis(data.createdAt) || Date.now(),
+    updatedAt: safeTimestampToMillis(data.updatedAt) || Date.now(),
+    dueDate: safeTimestampToMillis(data.dueDate),
+    reminder: safeTimestampToMillis(data.reminder),
     status: data.status,
     priority: data.priority,
     isStarred: data.isStarred,

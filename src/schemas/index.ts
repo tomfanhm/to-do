@@ -63,6 +63,7 @@ export type Task = z.infer<typeof task>
 
 export const editTask = task.omit({
   id: true,
+  userId: true,
   createdAt: true,
   updatedAt: true,
 })

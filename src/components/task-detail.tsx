@@ -690,29 +690,32 @@ const TaskDetail: React.FC<TaskDetailProps> = ({ task }) => {
                     </div>
                   </CardHeader>
                   <CardContent className="px-0">
-                    <Table>
+                    <Table className="w-full table-fixed">
                       <TableHeader>
                         <TableRow>
-                          <TableHead>Name</TableHead>
-                          <TableHead>Type</TableHead>
-                          <TableHead>Size</TableHead>
-                          <TableHead>Actions</TableHead>
+                          <TableHead className="w-1/4">Name</TableHead>
+                          <TableHead className="w-1/4">Type</TableHead>
+                          <TableHead className="w-1/4">Size</TableHead>
+                          <TableHead className="w-1/4">Actions</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
                         {task.attachments.map((attachment) => (
                           <TableRow key={attachment.id}>
-                            <TableCell>{attachment.name}</TableCell>
-                            <TableCell>
+                            <TableCell className="w-1/4 truncate">
+                              {attachment.name}
+                            </TableCell>
+                            <TableCell className="w-1/4">
                               {attachment.type || "Unknown"}
                             </TableCell>
-                            <TableCell>
+                            <TableCell className="w-1/4">
                               {formatFileSize(attachment.size)}
                             </TableCell>
-                            <TableCell>
+                            <TableCell className="w-1/4">
                               <div className="flex items-center gap-1">
                                 <Button
                                   variant="ghost"
+                                  size="sm"
                                   onClick={() =>
                                     window.open(attachment.url, "_blank")
                                   }
@@ -721,12 +724,11 @@ const TaskDetail: React.FC<TaskDetailProps> = ({ task }) => {
                                 </Button>
                                 <Button
                                   variant="ghost"
-                                  size="icon"
+                                  size="sm"
                                   onClick={() =>
                                     handleDeleteAttachment(attachment.id)
                                   }
                                 >
-                                  <span className="sr-only">Delete</span>
                                   <Trash2 />
                                 </Button>
                               </div>

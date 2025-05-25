@@ -1,3 +1,4 @@
+import { taskGroup } from "@/schemas"
 import { createFileRoute, useParams } from "@tanstack/react-router"
 
 import { Header } from "@/components/header"
@@ -20,11 +21,13 @@ export const Route = createFileRoute("/_pathlessLayout/$group")({
 function RouteComponent() {
   const { group } = useParams({ from: "/_pathlessLayout/$group" })
 
+  const validGroup = taskGroup.parse(group)
+
   return (
     <ProtectedRoute>
       <Header />
       <div className="mx-auto flex max-w-7xl flex-1 overflow-hidden p-6 lg:px-8">
-        <TaskContainer title={upperFirstLetter(group)} group="default" />
+        <TaskContainer title={upperFirstLetter(group)} group={validGroup} />
       </div>
     </ProtectedRoute>
   )
