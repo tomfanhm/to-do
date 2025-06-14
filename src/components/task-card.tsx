@@ -43,9 +43,9 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95 }}
         transition={{ type: "spring", stiffness: 400, damping: 25 }}
-        className="relative"
+        className="relative h-full"
       >
-        <Card>
+        <Card className="h-full">
           <CardContent>
             <div className="flex items-start gap-4">
               <div className="flex-1 overflow-hidden">
@@ -65,7 +65,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
                     {task.description}
                   </p>
                 )}
-                <div className="mt-4 flex flex-wrap space-x-2">
+                <div className="mt-4 flex flex-wrap gap-2">
                   {task.category && (
                     <Badge variant="outline">{task.category}</Badge>
                   )}

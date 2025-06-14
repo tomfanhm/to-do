@@ -99,7 +99,7 @@ const TaskContainer: React.FC<TaskContainerProps> = ({ title, group }) => {
         <div
           className={
             displayMode === "grid"
-              ? "grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"
+              ? "grid auto-rows-fr grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"
               : "space-y-3"
           }
         >
