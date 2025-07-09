@@ -88,7 +88,7 @@ const Sidebar: React.FC = () => {
             <span className="sr-only">Open Task Groups</span>
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="w-[480px]">
+        <SheetContent side="left" className="w-full sm:w-[480px]">
           <SheetHeader>
             <SheetTitle className="sr-only">Task Groups</SheetTitle>
             <SheetDescription className="sr-only">

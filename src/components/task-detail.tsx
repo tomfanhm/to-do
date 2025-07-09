@@ -186,7 +186,7 @@ const TaskDetail: React.FC<TaskDetailProps> = ({ task }) => {
           View Details
         </DropdownMenuItem>
       </SheetTrigger>
-      <SheetContent side="right" className="w-[480px]">
+      <SheetContent side="right" className="w-full sm:w-[480px]">
         <SheetHeader>
           <SheetTitle>{task.title}</SheetTitle>
           <SheetDescription>
