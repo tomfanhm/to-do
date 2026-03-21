@@ -8,7 +8,11 @@ import {
 import { storage } from "@/lib/firebase/firebase-config"
 
 export const storageService = {
-  buildAttachmentPath(userId: string, taskId: string, attachmentId: string): string {
+  buildAttachmentPath(
+    userId: string,
+    taskId: string,
+    attachmentId: string
+  ): string {
     return `attachments/${userId}/${taskId}/${attachmentId}`
   },
 

@@ -1,4 +1,3 @@
-import type { User } from "@/features/auth/schemas"
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
@@ -9,6 +8,7 @@ import {
 } from "firebase/auth"
 import type { User as FirebaseUser } from "firebase/auth"
 
+import type { User } from "@/features/auth/schemas"
 import { auth } from "@/lib/firebase/firebase-config"
 
 function transformFirebaseUser(firebaseUser: FirebaseUser): User {
@@ -27,7 +27,11 @@ export const authService = {
   },
 
   async signUp(email: string, password: string): Promise<User> {
-    const credential = await createUserWithEmailAndPassword(auth, email, password)
+    const credential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    )
     return transformFirebaseUser(credential.user)
   },
 

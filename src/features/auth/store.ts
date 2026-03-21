@@ -1,7 +1,7 @@
-import type { User } from "@/features/auth/schemas"
 import { create } from "zustand"
 import { subscribeWithSelector } from "zustand/middleware"
 
+import type { User } from "@/features/auth/schemas"
 import { authService } from "@/services/auth.service"
 
 interface AuthState {
@@ -55,8 +55,7 @@ let authUnsubscribe: (() => void) | null = null
 export const initializeAuth = () => {
   if (authUnsubscribe) return
 
-  const { setCurrentUser, setLoading, setInitialized } =
-    useAuthStore.getState()
+  const { setCurrentUser, setLoading, setInitialized } = useAuthStore.getState()
 
   authUnsubscribe = authService.onAuthStateChanged((user) => {
     setCurrentUser(user)

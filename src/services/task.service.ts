@@ -1,4 +1,3 @@
-import type { Attachment, Task } from "@/features/tasks/schemas"
 import {
   addDoc,
   collection,
@@ -14,8 +13,9 @@ import {
 } from "firebase/firestore"
 import type { DocumentData } from "firebase/firestore"
 
-import { db } from "@/lib/firebase/firebase-config"
+import type { Attachment, Task } from "@/features/tasks/schemas"
 import { storageService } from "@/services/storage.service"
+import { db } from "@/lib/firebase/firebase-config"
 
 const TASKS_COLLECTION = "tasks"
 
@@ -24,7 +24,8 @@ function safeTimestampToMillis(timestamp: any): number | null {
   if (timestamp instanceof Timestamp) return timestamp.toMillis()
   if (typeof timestamp === "number") return timestamp
   if (timestamp instanceof Date) return timestamp.getTime()
-  if (timestamp && typeof timestamp.toMillis === "function") return timestamp.toMillis()
+  if (timestamp && typeof timestamp.toMillis === "function")
+    return timestamp.toMillis()
   if (timestamp && typeof timestamp.seconds === "number") {
     return timestamp.seconds * 1000 + (timestamp.nanoseconds || 0) / 1000000
   }
@@ -67,7 +68,10 @@ export const taskService = {
     return docRef.id
   },
 
-  async update(id: string, updates: Partial<Omit<Task, "id" | "userId">>): Promise<void> {
+  async update(
+    id: string,
+    updates: Partial<Omit<Task, "id" | "userId">>
+  ): Promise<void> {
     const taskRef = doc(db, TASKS_COLLECTION, id)
     const firestoreUpdates: any = {
       ...updates,
@@ -84,11 +88,19 @@ export const taskService = {
     await updateDoc(taskRef, firestoreUpdates)
   },
 
-  async delete(id: string, userId: string, attachments: Array<Attachment>): Promise<void> {
+  async delete(
+    id: string,
+    userId: string,
+    attachments: Array<Attachment>
+  ): Promise<void> {
     if (attachments.length > 0) {
       await Promise.all(
         attachments.map(async (attachment) => {
-          const path = storageService.buildAttachmentPath(userId, id, attachment.id)
+          const path = storageService.buildAttachmentPath(
+            userId,
+            id,
+            attachment.id
+          )
           try {
             await storageService.delete(path)
           } catch (error) {
@@ -107,7 +119,11 @@ export const taskService = {
     file: File
   ): Promise<Attachment> {
     const attachmentId = Math.random().toString(36).substring(2, 15)
-    const path = storageService.buildAttachmentPath(userId, taskId, attachmentId)
+    const path = storageService.buildAttachmentPath(
+      userId,
+      taskId,
+      attachmentId
+    )
     const downloadUrl = await storageService.upload(path, file)
 
     return {
@@ -125,7 +141,11 @@ export const taskService = {
     taskId: string,
     attachmentId: string
   ): Promise<void> {
-    const path = storageService.buildAttachmentPath(userId, taskId, attachmentId)
+    const path = storageService.buildAttachmentPath(
+      userId,
+      taskId,
+      attachmentId
+    )
     await storageService.delete(path)
   },
 

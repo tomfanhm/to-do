@@ -1,8 +1,8 @@
-import type { Attachment, Task, TaskGroup } from "@/features/tasks/schemas"
 import { create } from "zustand"
 import { subscribeWithSelector } from "zustand/middleware"
 
 import { useAuthStore } from "@/features/auth/store"
+import type { Attachment, Task, TaskGroup } from "@/features/tasks/schemas"
 import { taskService } from "@/services/task.service"
 
 interface TaskState {

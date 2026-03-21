@@ -22,4 +22,10 @@ export type {
 } from "@/features/tasks/schemas"
 
 export { user, email, password, login, register } from "@/features/auth/schemas"
-export type { User, Email, Password, Login, Register } from "@/features/auth/schemas"
+export type {
+  User,
+  Email,
+  Password,
+  Login,
+  Register,
+} from "@/features/auth/schemas"
